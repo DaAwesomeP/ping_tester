@@ -1,0 +1,17 @@
+# Ping Tester config file
+# Comments are lines that start with #
+# First non-comment line is the GroupMe key
+# Blank lines are ignored
+# All other lines follow:
+#   ip host
+# where ip is the ip address to ping,
+# host is the hostname to show when notifying,
+# and ip and host are separated by a space
+
+abcdefghijklmnopqrstuvwxyz12345
+
+0.0.0.1 host1.example.com
+0.0.0.2 host2.example.com
+
+# 0.0.0.3 commented.example.com
+0.0.0.4 another.host.com

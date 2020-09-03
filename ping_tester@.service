@@ -1,0 +1,12 @@
+[Unit]
+Description=Ping Tester
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ping_tester /etc/ping_tester/%i
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target

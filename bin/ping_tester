@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+file=$1
+bot_id=''
+
+send=''
+IFS=' '
+while read -r ip domain
+do
+  if [[ $ip ]]; then
+    if [[ $ip != \#* ]]; then
+      if [[ $bot_id ]]; then
+        if ! out=$(ping -c 5 -q $ip 2>&1); then
+          printf -v msg "error pinging %s (%s)"$'\n' "$ip" "$domain"
+          new="$(date)"$'\n'"$msg$out"$'\n'$'\n'
+          send="$send$new"
+          printf "$new"
+        fi
+      else
+        bot_id="$ip"
+      fi
+    fi
+  fi
+done < "$file"
+
+printf "Done.\n"
+
+if [[ $send ]]; then
+  printf "Notifying errors\n"
+  curl -X POST --data-urlencode "bot_id=$bot_id" --data-urlencode "text=$send" https://api.groupme.com/v3/bots/post
+fi
